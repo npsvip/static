@@ -2062,8 +2062,8 @@ $(document).ready(function () {
                   <p style="color: #dcd6d3;">原价 ${item.remarks[0]}</p>
                   <p>现价 ${item.remarks[1]}</p>
             </div>
-            ${item.special == 1 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="images/tejia.png">\n            </div>' :
-                    item.special == 2 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="images/remai.png">\n            </div>' : ''}
+            ${item.special == 1 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.1/images/tejia.png">\n            </div>' :
+                    item.special == 2 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.1/images/remai.png">\n            </div>' : ''}
             <div class="pricing-service-name">
               <ul>
                 ${item.remarks.slice(2).map(item => `<li>${item}</li>`).join('')}
@@ -2162,7 +2162,7 @@ setInterval("changeColor()",200);
 let divTyping = document.getElementById('typing');
 let i = 0,
     timer = 0,
-    str = '让天下没有难用的内网穿透'
+    str = '简单、易用、超高性价比'
 
 function typing() {
     if (i <= str.length) {
