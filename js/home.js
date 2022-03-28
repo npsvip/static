@@ -2039,7 +2039,7 @@ $(document).ready(function () {
         });*/
 
     var documentUrl = ''
-/*    $.ajax({
+    $.ajax({
         type: "get",
         url: baseUrl + "/order/setMealList", //url
         dataType: "json",
@@ -2062,8 +2062,8 @@ $(document).ready(function () {
                   <p style="color: #dcd6d3;">原价 ${item.remarks[0]}</p>
                   <p>现价 ${item.remarks[1]}</p>
             </div>
-            ${item.special == 1 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.2/images/tejia.png">\n            </div>' :
-                    item.special == 2 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.2/images/remai.png">\n            </div>' : ''}
+            ${item.special == 1 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/tejia.png">\n            </div>' :
+                    item.special == 2 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/remai.png">\n            </div>' : ''}
             <div class="pricing-service-name">
               <ul>
                 ${item.remarks.slice(2).map(item => `<li>${item}</li>`).join('')}
@@ -2076,7 +2076,7 @@ $(document).ready(function () {
             }).join('')
             wrap.append(str)
         }
-    });*/
+    });
 
     $.ajax({
         type: "get",
