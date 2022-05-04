@@ -2009,7 +2009,10 @@ function changeActive(name) {
     $('.' + name).parent().attr('class', 'active')
 }
 
-$('#group1').click(function () { $('html,body').animate({ scrollTop: document.getElementsByTagName('BODY')[0].scrollHeight}, 2000); return false; });
+$('#group1').click(function () {
+    $('html,body').animate({scrollTop: document.getElementsByTagName('BODY')[0].scrollHeight}, 2000);
+    return false;
+});
 
 $(document).ready(function () {
     /*    var modelNames = ['haruto', 'koharu', 'shizuku', 'hijiki', 'tororo'];
@@ -2055,18 +2058,20 @@ $(document).ready(function () {
                 }))
             })
             let wrap = $('.pricing-wrapper')
-            let str = arr.map(item => {
+            let str = titles.map(item => {
                 return `<div class="col-md-4 col-sm-4 col-xs-12 pricing-plans wow bounceInLeft hoverer">
             <div class="pricing-titles">
-                  <h2>${item.title}</h2>
-                  <p style="color: #dcd6d3;">原价 ${item.remarks[0]}</p>
-                  <p>现价 ${item.remarks[1]}</p>
+                  <h2>${item}</h2>
+                  <p style="color: #dcd6d3;">原价 ${result.data[item][0].remarks[0]}</p>
+                  <p>现价 <select style="border: 0; outline: none;">
+                            ${result.data[item].map(item => `<option value="${item.remarks[1]}">${item.remarks[1]}</option>`).join('')}
+                        </select>
             </div>
-            ${item.special == 1 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/tejia.png">\n            </div>' :
-                    item.special == 2 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/remai.png">\n            </div>' : ''}
+            ${result.data[item][0].special == 1 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/tejia.png">\n            </div>' :
+                    result.data[item][0].special == 2 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/remai.png">\n            </div>' : ''}
             <div class="pricing-service-name">
               <ul>
-                ${item.remarks.slice(2).map(item => `<li>${item}</li>`).join('')}
+                ${result.data[item][0].remarks.slice(2).map(item => `<li>${item}</li>`).join('')}
               </ul>
             </div>
             <div class="bg-btn">
@@ -2074,6 +2079,25 @@ $(document).ready(function () {
             </div>
           </div>`
             }).join('')
+            /*            let str = arr.map(item => {
+                            return `<div class="col-md-4 col-sm-4 col-xs-12 pricing-plans wow bounceInLeft hoverer">
+                        <div class="pricing-titles">
+                              <h2>${item.title}</h2>
+                              <p style="color: #dcd6d3;">原价 ${item.remarks[0]}</p>
+                              <p>现价 ${item.remarks[1]}</p>
+                        </div>
+                        ${item.special == 1 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/tejia.png">\n            </div>' :
+                                item.special == 2 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/remai.png">\n            </div>' : ''}
+                        <div class="pricing-service-name">
+                          <ul>
+                            ${item.remarks.slice(2).map(item => `<li>${item}</li>`).join('')}
+                          </ul>
+                        </div>
+                        <div class="bg-btn">
+                          <a href="/user.html" class="signup-btn">立即创建</a>
+                        </div>
+                      </div>`
+                        }).join('')*/
             wrap.append(str)
         }
     });
@@ -2099,7 +2123,7 @@ $(document).ready(function () {
                 //后缀
                 suffix: ''
             };
-            var numAnim = new CountUp('ct', result.registerUser-50, result.registerUser, 0, 2.5, options);
+            var numAnim = new CountUp('ct', result.registerUser - 50, result.registerUser, 0, 2.5, options);
             if (!numAnim.error) {
                 numAnim.start();
             } else {
@@ -2109,20 +2133,20 @@ $(document).ready(function () {
     });
 
     //平台、设备和操作系统
-    var system ={
-        win : false,
-        mac : false,
-        xll : false
+    var system = {
+        win: false,
+        mac: false,
+        xll: false
     };
     //检测平台
     var p = navigator.platform;
     system.win = p.indexOf("Win") == 0;
     system.mac = p.indexOf("Mac") == 0;
     system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
-    if(system.win||system.mac||system.xll){
+    if (system.win || system.mac || system.xll) {
         //是PC,代码...
         // $("#map").css("display","block");
-    }else{
+    } else {
         //不是PC,代码...
         // $("#map").css("display","none");
     }
@@ -2154,12 +2178,13 @@ $(document).ready(function () {
     }
 })
 
-function changeColor(){
-    var color="#f00|#0f0|#00f|#880|#808|#088|yellow|green|blue|gray";
-    color=color.split("|");
-    document.getElementById("blink").style.color=color[parseInt(Math.random() * color.length)];
+function changeColor() {
+    var color = "#f00|#0f0|#00f|#880|#808|#088|yellow|green|blue|gray";
+    color = color.split("|");
+    document.getElementById("blink").style.color = color[parseInt(Math.random() * color.length)];
 }
-setInterval("changeColor()",200);
+
+setInterval("changeColor()", 200);
 
 
 let divTyping = document.getElementById('typing');
@@ -2176,6 +2201,7 @@ function typing() {
         clearTimeout(timer)
     }
 }
+
 typing();
 
 $('.bd-example').css('height', $(window).height() + 'px');
