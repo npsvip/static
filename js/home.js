@@ -2062,8 +2062,8 @@ $(document).ready(function () {
                 return `<div class="col-md-4 col-sm-4 col-xs-12 pricing-plans wow bounceInLeft hoverer">
             <div class="pricing-titles">
                   <h2>${item}</h2>
-                  <p style="color: #dcd6d3;">原价 ${result.data[item][0].remarks[0]}</p>
-                  <p>现价 <select style="border: 0; outline: none;">
+                  <p class="${item}-old" style="color: #dcd6d3;">原价 ${result.data[item][0].remarks[0]}</p>
+                  <p>现价 <select class="${item}-select" style="border: 0; outline: none;">
                             ${result.data[item].map(item => `<option value="${item.remarks[1]}">${item.remarks[1]}</option>`).join('')}
                         </select>
             </div>
@@ -2071,7 +2071,8 @@ $(document).ready(function () {
                     result.data[item][0].special == 2 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/remai.png">\n            </div>' : ''}
             <div class="pricing-service-name">
               <ul>
-                ${result.data[item][0].remarks.slice(2).map(item => `<li>${item}</li>`).join('')}
+                    <li class="${item}-li">${result.data[item][0].remarks.slice(2)[0]}</li>
+                    ${result.data[item][0].remarks.slice(3).map(item => `<li>${item}</li>`).join('')}
               </ul>
             </div>
             <div class="bg-btn">
@@ -2079,28 +2080,27 @@ $(document).ready(function () {
             </div>
           </div>`
             }).join('')
-            /*            let str = arr.map(item => {
-                            return `<div class="col-md-4 col-sm-4 col-xs-12 pricing-plans wow bounceInLeft hoverer">
-                        <div class="pricing-titles">
-                              <h2>${item.title}</h2>
-                              <p style="color: #dcd6d3;">原价 ${item.remarks[0]}</p>
-                              <p>现价 ${item.remarks[1]}</p>
-                        </div>
-                        ${item.special == 1 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/tejia.png">\n            </div>' :
-                                item.special == 2 ? '<div style="position: absolute;right: 20px;top: 25px">\n              <img src="https://cdn.jsdelivr.net/gh/npsvip/static@1.0.4/images/remai.png">\n            </div>' : ''}
-                        <div class="pricing-service-name">
-                          <ul>
-                            ${item.remarks.slice(2).map(item => `<li>${item}</li>`).join('')}
-                          </ul>
-                        </div>
-                        <div class="bg-btn">
-                          <a href="/user.html" class="signup-btn">立即创建</a>
-                        </div>
-                      </div>`
-                        }).join('')*/
             wrap.append(str)
+
+            titles.map(item => {
+                let priceOld = '.' + item + '-old';
+                let priceSelect = '.' + item + '-select';
+                let priceLi = '.' + item + '-li';
+                $(priceSelect).change(function () {
+                    let ei = $(priceSelect).children('option:selected').val();
+                    result.data[item].map(item => {
+                        if (item.remarks[1] == ei) {
+                            console.log(item.remarks.slice(2)[0])
+                            $(priceOld).html(item.remarks[0]);
+                            $(priceLi).html(item.remarks.slice(2)[0]);
+                        }
+                    })
+                })
+            });
+
         }
     });
+
 
     $.ajax({
         type: "get",
